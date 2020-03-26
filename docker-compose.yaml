@@ -1,0 +1,45 @@
+version: '3'
+
+services:
+  #Database
+  db:
+    image: mysql:5.7
+    volumes: 
+      - db_data:/var/lib/mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: testas
+      MYSQL_DATABASE: laravel
+      MYSQL_USER: laravel
+      MYSQL_PASSWORD: laravel
+    networks:
+      - poker
+  #PhpMyAdmin
+  phpmyadmin:
+    depends_on:
+      - db
+    image: phpmyadmin/phpmyadmin
+    restart: always
+    ports:
+      - '1102:80'
+    environment:
+      PMA_HOST: db
+      MYSQL_ROOT_PASSWORD: testas
+    networks:
+      - poker
+  #WEB
+  web:
+    depends_on:
+      - db
+    image: manageless_web:latest
+    ports:
+      - '8102:80'
+    restart: always
+    volumes: 
+      - './:/var/www/html'
+    networks:
+      - poker
+networks:
+  poker:
+volumes:
+  db_data:
