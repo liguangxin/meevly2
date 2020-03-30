@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Tests;
-use App\TestsCategories;
+use App\TestsCategory;
 use App\TestQuestions;
 
 class TestsController extends Controller
@@ -38,11 +38,11 @@ class TestsController extends Controller
     public function create()
     {
 		$sorted     = array();
-        $categories = TestsCategories::all()->toArray();
+        $categories = TestsCategory::all()->toArray();
 
         foreach ($categories as $category) {
             if ( 0 == $category['parent_id'] ) {
-                $sorted[0][$category['id']] = $category; 
+                $sorted[0][$category['id']] = $category;
             } else {
                 $sorted[$category['parent_id']][$category['id']] = $category;
             }
@@ -86,7 +86,7 @@ class TestsController extends Controller
             ->where('test_id', $id)
             ->get();
 
-        
+
         return view('tests.show', array(
             'title'     => 'Testo klausimai',
             'current'   => 'tests',
@@ -105,11 +105,11 @@ class TestsController extends Controller
     {
         $sorted     = array();
         $test       = Tests::find($id);
-        $categories = TestsCategories::all()->toArray();
+        $categories = TestsCategory::all()->toArray();
 
         foreach ($categories as $category) {
             if ( 0 == $category['parent_id'] ) {
-                $sorted[0][$category['id']] = $category; 
+                $sorted[0][$category['id']] = $category;
             } else {
                 $sorted[$category['parent_id']][$category['id']] = $category;
             }

@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use App\Tutorials;
-use App\TutorialsCategories;
+use App\Tutorial;
+use App\TutorialCategory;
 
 class TutorialsController extends Controller
 {
@@ -17,7 +17,7 @@ class TutorialsController extends Controller
     public function index(Request $request)
     {
         $sorted    = array();
-		$tutorials = Tutorials::select('tutorials.id', 'tutorials.name', 'tutorials.content', 'tutorials_categories.name AS category_name')
+		$tutorials = Tutorial::select('tutorials.id', 'tutorials.name', 'tutorials.content', 'tutorials_categories.name AS category_name')
 			->join('tutorials_categories', 'tutorials_categories.id', '=', 'tutorials.tutorials_category_id')
 			->get();
 
@@ -37,11 +37,11 @@ class TutorialsController extends Controller
     public function create()
     {
 		$sorted     = array();
-        $categories = TutorialsCategories::all()->toArray();
+        $categories = TutorialCategory::all()->toArray();
 
         foreach ($categories as $category) {
             if ( 0 == $category['parent_id'] ) {
-                $sorted[0][$category['id']] = $category; 
+                $sorted[0][$category['id']] = $category;
             } else {
                 $sorted[$category['parent_id']][$category['id']] = $category;
             }
@@ -63,7 +63,7 @@ class TutorialsController extends Controller
      */
     public function store(Request $request)
     {
-        $tutorial                        = new Tutorials;
+        $tutorial                        = new Tutorial;
         $tutorial->name                  = $request->input('name');
         $tutorial->tutorials_category_id = $request->input('tutorials_category_id');
         $tutorial->content               = $request->input('content');
@@ -92,12 +92,12 @@ class TutorialsController extends Controller
     public function edit($id)
     {
         $sorted     = array();
-        $tutorial   = Tutorials::find($id);
-        $categories = TutorialsCategories::all()->toArray();
+        $tutorial   = Tutorial::find($id);
+        $categories = TutorialCategory::all()->toArray();
 
         foreach ($categories as $category) {
             if ( 0 == $category['parent_id'] ) {
-                $sorted[0][$category['id']] = $category; 
+                $sorted[0][$category['id']] = $category;
             } else {
                 $sorted[$category['parent_id']][$category['id']] = $category;
             }
@@ -120,7 +120,7 @@ class TutorialsController extends Controller
      */
     public function update(Request $request, $id)
     {
-		$tutorial                        = Tutorials::find($id);
+		$tutorial                        = Tutorial::find($id);
         $tutorial->name                  = $request->input('name');
         $tutorial->tutorials_category_id = $request->input('tutorials_category_id');
         $tutorial->content               = $request->input('content');
@@ -137,7 +137,7 @@ class TutorialsController extends Controller
      */
     public function destroy($id)
     {
-		Tutorials::find($id)->delete();
+		Tutorial::find($id)->delete();
 
 		return redirect('tutorials');
     }

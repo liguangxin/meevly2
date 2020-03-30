@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use App\TestsCategories;
+use App\TestsCategory;
 
 class TestsCategoriesController extends Controller
 {
@@ -16,11 +16,11 @@ class TestsCategoriesController extends Controller
     public function index(Request $request)
     {
         $sorted     = array();
-        $categories = TestsCategories::all()->toArray();
+        $categories = TestsCategory::all()->toArray();
 
         foreach ($categories as $category) {
             if ( 0 == $category['parent_id'] ) {
-                $sorted[0][$category['id']] = $category; 
+                $sorted[0][$category['id']] = $category;
             } else {
                 $sorted[$category['parent_id']][$category['id']] = $category;
             }
@@ -42,11 +42,11 @@ class TestsCategoriesController extends Controller
     public function create()
     {
         $sorted     = array();
-        $categories = TestsCategories::all()->toArray();
+        $categories = TestsCategory::all()->toArray();
 
         foreach ($categories as $category) {
             if ( 0 == $category['parent_id'] ) {
-                $sorted[0][$category['id']] = $category; 
+                $sorted[0][$category['id']] = $category;
             } else {
                 $sorted[$category['parent_id']][$category['id']] = $category;
             }
@@ -68,7 +68,7 @@ class TestsCategoriesController extends Controller
      */
     public function store(Request $request)
     {
-        $category            = new TestsCategories;
+        $category            = new TestsCategory;
         $category->name      = $request->input('name');
         $category->parent_id = $request->input('parent_id');
         $category->save();
@@ -96,12 +96,12 @@ class TestsCategoriesController extends Controller
     public function edit($id)
     {
         $sorted     = array();
-        $single     = TestsCategories::find($id);
-        $categories = TestsCategories::all()->toArray();
+        $single     = TestsCategory::find($id);
+        $categories = TestsCategory::all()->toArray();
 
         foreach ($categories as $category) {
             if ( 0 == $category['parent_id'] ) {
-                $sorted[0][$category['id']] = $category; 
+                $sorted[0][$category['id']] = $category;
             } else {
                 $sorted[$category['parent_id']][$category['id']] = $category;
             }
@@ -124,7 +124,7 @@ class TestsCategoriesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $category            = TestsCategories::find($id);
+        $category            = TestsCategory::find($id);
         $category->name      = $request->input('name');
         $category->parent_id = $request->input('parent_id');
         $category->save();
@@ -140,12 +140,12 @@ class TestsCategoriesController extends Controller
      */
     public function destroy($id)
     {
-        $parent = TestsCategories::where('parent_id', $id)->get()->toArray();
+        $parent = TestsCategory::where('parent_id', $id)->get()->toArray();
 
         if ( ! empty( $parent ) ) {
             return redirect('tests-categories?error=1');
         } else {
-            TestsCategories::find($id)->delete();
+            TestsCategory::find($id)->delete();
 
             return redirect('tests-categories');
         }

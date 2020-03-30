@@ -7,8 +7,8 @@ use Illuminate\Http\Request;
 use DB;
 use Auth;
 use App\Tests;
-use App\Videos;
-use App\TestsCategories;
+use App\Video;
+use App\TestsCategory;
 use App\TestQuestions;
 use App\UserTests;
 use App\UserTestsAnswers;
@@ -17,7 +17,7 @@ use App\QuestionAnswers;
 class UserTestsController extends Controller
 {
     public function index() {
-        $categories = TestsCategories::all()->toArray();
+        $categories = TestsCategory::all()->toArray();
 
         foreach ($categories as $category) {
             if ( 0 == $category['parent_id'] ) {
@@ -27,7 +27,7 @@ class UserTestsController extends Controller
             }
 
             $tests[$category['id']] = Tests::where('tests_categories_id', $category['id'])->get();
-            $videos[$category['id']] = Videos::where('tests_categories_id', $category['id'])->get();
+            $videos[$category['id']] = Video::where('tests_categories_id', $category['id'])->get();
         }
 
         return view('user-tests.index', array(
@@ -143,7 +143,7 @@ class UserTestsController extends Controller
 
         // show results.
         $result = DB::table('user_tests_answers')->select(
-            DB::raw('COUNT(user_tests_answers.id) AS total'), 
+            DB::raw('COUNT(user_tests_answers.id) AS total'),
             DB::raw('SUM(CASE WHEN question_answers.is_correct = 1 THEN 1 ELSE 0 END) AS correct')
             )
             ->leftJoin('question_answers', 'question_answers.id', '=', 'user_tests_answers.question_answer_id')

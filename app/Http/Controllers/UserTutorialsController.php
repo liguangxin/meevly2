@@ -6,13 +6,13 @@ use Illuminate\Http\Request;
 
 use DB;
 use Auth;
-use App\Tutorials;
-use App\TutorialsCategories;
+use App\Tutorial;
+use App\TutorialCategory;
 
 class UserTutorialsController extends Controller
 {
     public function index() {
-        $categories = TutorialsCategories::all()->toArray();
+        $categories = TutorialCategory::all()->toArray();
 
         foreach ($categories as $category) {
             if ( 0 == $category['parent_id'] ) {
@@ -21,7 +21,7 @@ class UserTutorialsController extends Controller
                 $sorted[$category['parent_id']][$category['id']] = $category;
             }
 
-            $tutorials[$category['id']] = Tutorials::where('tutorials_category_id', $category['id'])->get();
+            $tutorials[$category['id']] = Tutorial::where('tutorials_category_id', $category['id'])->get();
         }
 
         return view('user-tutorials.index', array(
@@ -33,7 +33,7 @@ class UserTutorialsController extends Controller
     }
 
     public function show($id) {
-        $tutorial = Tutorials::where('id', $id)->first();
+        $tutorial = Tutorial::where('id', $id)->first();
 
         return view('user-tutorials.show', array(
             'title'      => 'Tutorialai',

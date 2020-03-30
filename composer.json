@@ -15,8 +15,11 @@
     ],
     "require": {
         "php": "^7.2",
+        "anaseqal/nova-sidebar-icons": "^0.0.3",
+        "digital-creative/collapsible-resource-manager": "^1.2",
         "doctrine/dbal": "^2.10",
         "fideloper/proxy": "^4.0",
+        "froala/nova-froala-field": "^3.3",
         "gregoriohc/laravel-nova-theme-responsive": "^0.8.1",
         "laravel/framework": "^7.0",
         "laravel/nova": "*",

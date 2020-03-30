@@ -2,6 +2,15 @@
 
 namespace App\Providers;
 
+use Anaseqal\NovaSidebarIcons\NovaSidebarIcons;
+use App\Nova\Tests;
+use App\Nova\TestsCategory;
+use App\Nova\Tutorial;
+use App\Nova\TutorialCategory;
+use App\Nova\Video;
+use App\Nova\VideoCategory;
+use DigitalCreative\CollapsibleResourceManager\CollapsibleResourceManager;
+use DigitalCreative\CollapsibleResourceManager\Resources\TopLevelResource;
 use Illuminate\Support\Facades\Gate;
 use Laravel\Nova\Cards\Help;
 use Laravel\Nova\Nova;
@@ -78,7 +87,35 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
      */
     public function tools()
     {
-        return [];
+        return [
+            new NovaSidebarIcons(),
+
+            new CollapsibleResourceManager([
+                'navigation' => [
+                    TopLevelResource::make([
+                        'label' => 'Testai',
+                        'resources' => [
+                            Tests::class,
+                            TestsCategory::class,
+                        ]
+                    ]),
+                    TopLevelResource::make([
+                        'label' => 'Videteka',
+                        'resources' => [
+                            Video::class,
+                            VideoCategory::class,
+                        ]
+                    ]),
+                    TopLevelResource::make([
+                        'label' => 'Tutorialai',
+                        'resources' => [
+                            Tutorial::class,
+                            TutorialCategory::class,
+                        ]
+                    ]),
+                ]
+            ]),
+        ];
     }
 
     /**

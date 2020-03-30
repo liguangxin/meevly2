@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use App\VideosCategories;
+use App\VideoCategory;
 
 class VideosCategoriesController extends Controller
 {
@@ -16,11 +16,11 @@ class VideosCategoriesController extends Controller
     public function index(Request $request)
     {
         $sorted     = array();
-        $categories = VideosCategories::all()->toArray();
+        $categories = VideoCategory::all()->toArray();
 
         foreach ($categories as $category) {
             if ( 0 == $category['parent_id'] ) {
-                $sorted[0][$category['id']] = $category; 
+                $sorted[0][$category['id']] = $category;
             } else {
                 $sorted[$category['parent_id']][$category['id']] = $category;
             }
@@ -42,11 +42,11 @@ class VideosCategoriesController extends Controller
     public function create()
     {
         $sorted     = array();
-        $categories = VideosCategories::all()->toArray();
+        $categories = VideoCategory::all()->toArray();
 
         foreach ($categories as $category) {
             if ( 0 == $category['parent_id'] ) {
-                $sorted[0][$category['id']] = $category; 
+                $sorted[0][$category['id']] = $category;
             } else {
                 $sorted[$category['parent_id']][$category['id']] = $category;
             }
@@ -68,7 +68,7 @@ class VideosCategoriesController extends Controller
      */
     public function store(Request $request)
     {
-        $category            = new VideosCategories;
+        $category            = new VideoCategory;
         $category->name      = $request->input('name');
         $category->parent_id = $request->input('parent_id');
         $category->save();
@@ -96,12 +96,12 @@ class VideosCategoriesController extends Controller
     public function edit($id)
     {
         $sorted     = array();
-        $single     = VideosCategories::find($id);
-        $categories = VideosCategories::all()->toArray();
+        $single     = VideoCategory::find($id);
+        $categories = VideoCategory::all()->toArray();
 
         foreach ($categories as $category) {
             if ( 0 == $category['parent_id'] ) {
-                $sorted[0][$category['id']] = $category; 
+                $sorted[0][$category['id']] = $category;
             } else {
                 $sorted[$category['parent_id']][$category['id']] = $category;
             }
@@ -124,7 +124,7 @@ class VideosCategoriesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $category            = VideosCategories::find($id);
+        $category            = VideoCategory::find($id);
         $category->name      = $request->input('name');
         $category->parent_id = $request->input('parent_id');
         $category->save();
@@ -140,12 +140,12 @@ class VideosCategoriesController extends Controller
      */
     public function destroy($id)
     {
-        $parent = VideosCategories::where('parent_id', $id)->get()->toArray();
+        $parent = VideoCategory::where('parent_id', $id)->get()->toArray();
 
         if ( ! empty( $parent ) ) {
             return redirect('videos-categories?error=1');
         } else {
-            VideosCategories::find($id)->delete();
+            VideoCategory::find($id)->delete();
 
             return redirect('videos-categories');
         }

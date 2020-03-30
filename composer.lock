@@ -4,8 +4,49 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c1d712563c995eaa8e0ebf876407c10b",
+    "content-hash": "4eac926a17d62845745b758ec1d4e55b",
     "packages": [
+        {
+            "name": "anaseqal/nova-sidebar-icons",
+            "version": "0.0.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/anaseqal/nova-sidebar-icons.git",
+                "reference": "ceb18c4943c36aa1eeebb6bd60c4f2daa24c2b00"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/anaseqal/nova-sidebar-icons/zipball/ceb18c4943c36aa1eeebb6bd60c4f2daa24c2b00",
+                "reference": "ceb18c4943c36aa1eeebb6bd60c4f2daa24c2b00",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.1.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Anaseqal\\NovaSidebarIcons\\ToolServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Anaseqal\\NovaSidebarIcons\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "A Laravel Nova tool.",
+            "keywords": [
+                "laravel",
+                "nova"
+            ],
+            "time": "2019-08-29T18:49:20+00:00"
+        },
         {
             "name": "brick/math",
             "version": "0.8.14",
@@ -152,6 +193,55 @@
                 "time"
             ],
             "time": "2019-11-30T02:33:19+00:00"
+        },
+        {
+            "name": "digital-creative/collapsible-resource-manager",
+            "version": "v1.2.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/dcasia/collapsible-resource-manager.git",
+                "reference": "f08e95afb685c8e810d45449f2bedf27a845fa8a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/dcasia/collapsible-resource-manager/zipball/f08e95afb685c8e810d45449f2bedf27a845fa8a",
+                "reference": "f08e95afb685c8e810d45449f2bedf27a845fa8a",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.1.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "DigitalCreative\\CollapsibleResourceManager\\CollapsibleResourceManagerServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "DigitalCreative\\CollapsibleResourceManager\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Rafael Milewski"
+                }
+            ],
+            "description": "A custom sidebar menu with collapsible groups",
+            "keywords": [
+                "collapse",
+                "collapsible",
+                "laravel",
+                "nova",
+                "sidebar"
+            ],
+            "time": "2020-01-20T11:14:13+00:00"
         },
         {
             "name": "dnoegel/php-xdg-base-dir",
@@ -730,6 +820,70 @@
                 "trusted proxy"
             ],
             "time": "2020-02-22T01:51:47+00:00"
+        },
+        {
+            "name": "froala/nova-froala-field",
+            "version": "3.3.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/froala/nova-froala-field.git",
+                "reference": "e4c5961662d29dcea95b0dab4e7ea25bf4dca2ad"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/froala/nova-froala-field/zipball/e4c5961662d29dcea95b0dab4e7ea25bf4dca2ad",
+                "reference": "e4c5961662d29dcea95b0dab4e7ea25bf4dca2ad",
+                "shasum": ""
+            },
+            "require": {
+                "laravel/nova": "*",
+                "league/flysystem": "^1.0.8",
+                "php": ">=7.1.3",
+                "spatie/image-optimizer": "^1.1"
+            },
+            "require-dev": {
+                "mockery/mockery": "^1.1",
+                "orchestra/testbench": "^3.8|^4.0",
+                "phpunit/phpunit": "^7.0|^8.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Froala\\NovaFroalaField\\FroalaFieldServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Froala\\NovaFroalaField\\": "src/"
+                },
+                "files": [
+                    "src/helpers.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Slava Razum",
+                    "email": "modern.web.artisan@gmail.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "A Laravel Nova Froala WYSIWYG Editor Field.",
+            "homepage": "https://github.com/froala/nova-froala-field",
+            "keywords": [
+                "editor",
+                "field",
+                "froala",
+                "laravel",
+                "nova",
+                "wysiwyg"
+            ],
+            "time": "2020-03-18T14:10:50+00:00"
         },
         {
             "name": "gregoriohc/laravel-nova-theme-responsive",
@@ -2285,6 +2439,56 @@
                 "uuid"
             ],
             "time": "2020-03-22T02:34:13+00:00"
+        },
+        {
+            "name": "spatie/image-optimizer",
+            "version": "1.2.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/spatie/image-optimizer.git",
+                "reference": "9c1d470e34b28b715d25edb539dd6c899461527c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/spatie/image-optimizer/zipball/9c1d470e34b28b715d25edb539dd6c899461527c",
+                "reference": "9c1d470e34b28b715d25edb539dd6c899461527c",
+                "shasum": ""
+            },
+            "require": {
+                "ext-fileinfo": "*",
+                "php": "^7.2",
+                "psr/log": "^1.0",
+                "symfony/process": "^4.2|^5.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^8.0",
+                "symfony/var-dumper": "^4.2|^5.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Spatie\\ImageOptimizer\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Freek Van der Herten",
+                    "email": "freek@spatie.be",
+                    "homepage": "https://spatie.be",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Easily optimize images using PHP",
+            "homepage": "https://github.com/spatie/image-optimizer",
+            "keywords": [
+                "image-optimizer",
+                "spatie"
+            ],
+            "time": "2019-11-25T12:29:24+00:00"
         },
         {
             "name": "spatie/once",

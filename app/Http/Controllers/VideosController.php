@@ -4,9 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use App\Videos;
-use App\VideosCategories;
-use App\TestsCategories;
+use App\Video;
+use App\VideoCategory;
+use App\TestsCategory;
 
 class VideosController extends Controller
 {
@@ -18,7 +18,7 @@ class VideosController extends Controller
     public function index(Request $request)
     {
         $sorted    = array();
-		$videos = Videos::select('videos.id', 'videos.name', 'videos.content', 'videos_categories.name AS category_name')
+		$videos = Video::select('videos.id', 'videos.name', 'videos.content', 'videos_categories.name AS category_name')
 			->join('videos_categories', 'videos_categories.id', '=', 'videos.videos_categories_id')
 			->get();
 
@@ -38,22 +38,22 @@ class VideosController extends Controller
     public function create()
     {
 		$sorted     = array();
-        $categories = VideosCategories::all()->toArray();
+        $categories = VideoCategory::all()->toArray();
 
         foreach ($categories as $category) {
             if ( 0 == $category['parent_id'] ) {
-                $sorted[0][$category['id']] = $category; 
+                $sorted[0][$category['id']] = $category;
             } else {
                 $sorted[$category['parent_id']][$category['id']] = $category;
             }
         }
 
         $tests_sorted     = array();
-        $tests_categories = TestsCategories::all()->toArray();
+        $tests_categories = TestsCategory::all()->toArray();
 
         foreach ($tests_categories as $test_category) {
             if ( 0 == $test_category['parent_id'] ) {
-                $tests_sorted[0][$test_category['id']] = $test_category; 
+                $tests_sorted[0][$test_category['id']] = $test_category;
             } else {
                 $tests_sorted[$test_category['parent_id']][$test_category['id']] = $test_category;
             }
@@ -76,7 +76,7 @@ class VideosController extends Controller
      */
     public function store(Request $request)
     {
-        $tutorial                       = new Videos;
+        $tutorial                       = new Video;
         $tutorial->name                 = $request->input('name');
         $tutorial->videos_categories_id = $request->input('videos_categories_id');
         $tutorial->tests_categories_id  = $request->input('tests_categories_id');
@@ -106,23 +106,23 @@ class VideosController extends Controller
     public function edit($id)
     {
         $sorted     = array();
-        $video      = Videos::find($id);
-        $categories = VideosCategories::all()->toArray();
+        $video      = Video::find($id);
+        $categories = VideoCategory::all()->toArray();
 
         foreach ($categories as $category) {
             if ( 0 == $category['parent_id'] ) {
-                $sorted[0][$category['id']] = $category; 
+                $sorted[0][$category['id']] = $category;
             } else {
                 $sorted[$category['parent_id']][$category['id']] = $category;
             }
         }
 
         $tests_sorted     = array();
-        $tests_categories = TestsCategories::all()->toArray();
+        $tests_categories = TestsCategory::all()->toArray();
 
         foreach ($tests_categories as $test_category) {
             if ( 0 == $test_category['parent_id'] ) {
-                $tests_sorted[0][$test_category['id']] = $test_category; 
+                $tests_sorted[0][$test_category['id']] = $test_category;
             } else {
                 $tests_sorted[$test_category['parent_id']][$test_category['id']] = $test_category;
             }
@@ -146,7 +146,7 @@ class VideosController extends Controller
      */
     public function update(Request $request, $id)
     {
-		$tutorial                       = Videos::find($id);
+		$tutorial                       = Video::find($id);
         $tutorial->name                 = $request->input('name');
         $tutorial->videos_categories_id = $request->input('videos_categories_id');
         $tutorial->tests_categories_id  = $request->input('tests_categories_id');
@@ -164,7 +164,7 @@ class VideosController extends Controller
      */
     public function destroy($id)
     {
-		Videos::find($id)->delete();
+		Video::find($id)->delete();
 
 		return redirect('videos');
     }

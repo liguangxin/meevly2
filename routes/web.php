@@ -10,3 +10,6 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+
+// dd(\App\Tests::with('category')->get());
