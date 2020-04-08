@@ -23,7 +23,8 @@
         "gregoriohc/laravel-nova-theme-responsive": "^0.8.1",
         "laravel/framework": "^7.0",
         "laravel/nova": "*",
-        "laravel/tinker": "^2.0"
+        "laravel/tinker": "^2.0",
+        "vyuldashev/nova-permission": "^2.7"
     },
     "require-dev": {
         "facade/ignition": "^2.0",

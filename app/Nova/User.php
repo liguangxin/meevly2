@@ -5,8 +5,11 @@ namespace App\Nova;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Gravatar;
 use Laravel\Nova\Fields\ID;
+use Laravel\Nova\Fields\MorphToMany;
 use Laravel\Nova\Fields\Password;
 use Laravel\Nova\Fields\Text;
+use Vyuldashev\NovaPermission\PermissionBooleanGroup;
+use Vyuldashev\NovaPermission\RoleBooleanGroup;
 
 class User extends Resource
 {
@@ -34,6 +37,16 @@ class User extends Resource
     ];
 
     /**
+     * Get the displayble label of the resource.
+     *
+     * @return string
+     */
+    public static function label()
+    {
+        return 'Vartotojai';
+    }
+
+    /**
      * Get the fields displayed by the resource.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -45,6 +58,9 @@ class User extends Resource
             ID::make()->sortable(),
 
             Gravatar::make()->maxWidth(50),
+
+            RoleBooleanGroup::make('Roles'),
+            PermissionBooleanGroup::make('Permissions'),
 
             Text::make('Name')
                 ->sortable()

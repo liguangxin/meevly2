@@ -13,6 +13,7 @@ use App\Policies\UserContractsPolicy;
 
 use App\Policies\UserStakesPolicy;
 use App\Policies\UserRecordsPolicy;
+use Illuminate\Support\Facades\Gate;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -22,9 +23,9 @@ class AuthServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
-        User::class => UserContractsPolicy::class,
-        UserStake::class => UserStakesPolicy::class,
-        UserRecord::class => UserRecordsPolicy::class,
+//        User::class => UserContractsPolicy::class,
+//        UserStake::class => UserStakesPolicy::class,
+//        UserRecord::class => UserRecordsPolicy::class,
     ];
 
     /**
@@ -35,5 +36,11 @@ class AuthServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->registerPolicies();
+
+        // Implicitly grant "Super Admin" role all permissions
+        // This works in the app by using gate-related functions like auth()->user->can() and @can()
+        Gate::before(function ($user, $ability) {
+            return $user->hasRole('Admin') ? true : null;
+        });
     }
 }

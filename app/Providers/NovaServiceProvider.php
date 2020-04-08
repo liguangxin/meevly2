@@ -7,14 +7,21 @@ use App\Nova\Tests;
 use App\Nova\TestsCategory;
 use App\Nova\Tutorial;
 use App\Nova\TutorialCategory;
+use App\Nova\User;
 use App\Nova\Video;
 use App\Nova\VideoCategory;
+use App\Policies\PermissionPolicy;
+use App\Policies\RolePolicy;
 use DigitalCreative\CollapsibleResourceManager\CollapsibleResourceManager;
 use DigitalCreative\CollapsibleResourceManager\Resources\TopLevelResource;
+use Eminiarts\NovaPermissions\NovaPermissions;
 use Illuminate\Support\Facades\Gate;
 use Laravel\Nova\Cards\Help;
 use Laravel\Nova\Nova;
 use Laravel\Nova\NovaApplicationServiceProvider;
+use Vyuldashev\NovaPermission\NovaPermissionTool;
+use Vyuldashev\NovaPermission\Permission;
+use Vyuldashev\NovaPermission\Role;
 
 class NovaServiceProvider extends NovaApplicationServiceProvider
 {
@@ -88,9 +95,12 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
     public function tools()
     {
         return [
-            new NovaSidebarIcons(),
+            \Vyuldashev\NovaPermission\NovaPermissionTool::make()
+                ->permissionPolicy(PermissionPolicy::class)
+                ->rolePolicy(RolePolicy::class),
 
             new CollapsibleResourceManager([
+                'disable_default_resource_manager' => true,
                 'navigation' => [
                     TopLevelResource::make([
                         'label' => 'Testai',
@@ -113,7 +123,15 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
                             TutorialCategory::class,
                         ]
                     ]),
-                ]
+                    TopLevelResource::make([
+                        'label' => 'Vartotojai',
+                        'resources' => [
+                            User::class,
+                            Permission::class,
+                            Role::class,
+                        ]
+                    ]),
+                ],
             ]),
         ];
     }
